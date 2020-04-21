@@ -1,5 +1,7 @@
 package in.yadav.springboot.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,24 +9,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "User")
+@Component
 public class User {
+
 	@Id
-	@Column(name = "id")
+	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long userId;
 
-	@Column(name = "name")
-	private String name;
+	private String firstname;
 
-	@Column(name = "password")
+	private String lastname;
+
+	private String email;
+
 	private String password;
 
-	@Column(name = "type")
-	private String type;
+	private Long mobileNumber;
 
+	private LocalDateTime createdDate;
+
+	private boolean isVerified;
 }
