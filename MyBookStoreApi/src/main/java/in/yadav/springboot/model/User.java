@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -30,11 +31,13 @@ public class User {
 
 	private String email;
 
-	private String password;
-
 	private Long mobileNumber;
+
+	private String password;
 
 	private LocalDateTime createdDate;
 
 	private boolean isVerified;
+
+	private boolean isUser;
 }

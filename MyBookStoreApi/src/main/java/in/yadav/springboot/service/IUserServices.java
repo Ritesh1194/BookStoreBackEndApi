@@ -9,11 +9,10 @@ import in.yadav.springboot.model.Login;
 import in.yadav.springboot.model.PasswordUpdate;
 import in.yadav.springboot.model.User;
 
-
 @Service
 public interface IUserServices {
 
-	public  User login(Login information);
+	public User login(Login information);
 
 	public boolean register(UserDto ionformation);
 
@@ -26,4 +25,6 @@ public interface IUserServices {
 	public List<User> getUsers();
 
 	public User getSingleUser(String token);
+
+	public User findByUserName(String name);
 }

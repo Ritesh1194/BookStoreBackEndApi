@@ -175,4 +175,10 @@ public class UserServicesImplementation implements IUserServices {
 		User user = repository.getUserById(id);
 		return user;
 	}
+
+	@Override
+	public User findByUserName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

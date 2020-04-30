@@ -98,4 +98,10 @@ public class UserRepositoryImplementation implements IUserRepository {
 		List<User> usersList = currentsession.createQuery("from User").getResultList();
 		return usersList;
 	}
+
+	@Override
+	public User findByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

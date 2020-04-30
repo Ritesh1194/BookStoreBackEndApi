@@ -1,33 +1,158 @@
 package in.yadav.springboot.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="book")
-public class Book {
+@Table(name = "book")
+public class Book implements Serializable {
 
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "book_id")
+	private Long bookId;
 
-	private long id;
+	@Column(name = "title")
+	private String bookTitle;
 
-	@Column(name="name")
-	private String name;
-	
-	@Column(name="author")
-	private String author;
-	
-	@Column(name="price")
-	private String price;
-	
-	@Column(name = "picByte", length = 1000)
-	private byte[] picByte;	
+	@Column(name = "author")
+	private String bookAuthor;
+
+	@Column(name = "pages")
+	private Integer bookPages;
+
+	@Column(name = "isbn")
+	private String bookIsbn;
+
+	@Column(name = "price", precision = 10, scale = 2)
+	private BigDecimal bookPrice;
+
+	@Column(name = "description", columnDefinition = "text")
+	private String bookDescription;
+
+	@Lob
+	@Column(name = "image")
+	private byte[] bookImage;
+
+	@Column(name = "image_content_type")
+	private String bookImageContentType;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderBook> orders = new ArrayList<>();
+
+	public Long getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Long bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public String getBookAuthor() {
+		return bookAuthor;
+	}
+
+	public void setBookAuthor(String bookAuthor) {
+		this.bookAuthor = bookAuthor;
+	}
+
+	public Integer getBookPages() {
+		return bookPages;
+	}
+
+	public void setBookPages(Integer bookPages) {
+		this.bookPages = bookPages;
+	}
+
+	public String getBookIsbn() {
+		return bookIsbn;
+	}
+
+	public void setBookIsbn(String bookIsbn) {
+		this.bookIsbn = bookIsbn;
+	}
+
+	public BigDecimal getBookPrice() {
+		return bookPrice;
+	}
+
+	public void setBookPrice(BigDecimal bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+
+	public String getBookDescription() {
+		return bookDescription;
+	}
+
+	public void setBookDescription(String bookDescription) {
+		this.bookDescription = bookDescription;
+	}
+
+	public byte[] getBookImage() {
+		return bookImage;
+	}
+
+	public void setBookImage(byte[] bookImage) {
+		this.bookImage = bookImage;
+	}
+
+	public String getBookImageContentType() {
+		return bookImageContentType;
+	}
+
+	public void setBookImageContentType(String bookImageContentType) {
+		this.bookImageContentType = bookImageContentType;
+	}
+
+	public List<OrderBook> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderBook> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(bookTitle);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		Book book = (Book) obj;
+		return Objects.equals(bookTitle, book.bookTitle);
+	}
 }
